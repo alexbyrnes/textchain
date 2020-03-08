@@ -24,3 +24,27 @@ pub fn do_work(data: &[u8]) -> String {
 pub fn puzzle(proposal: String) -> bool {
     proposal.starts_with("00")
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_puzzle() {
+        assert!(puzzle("001".into()));
+    }
+
+    #[test]
+    fn test_do_work() {
+        assert_eq!(
+            "fd9528b920d6d3956e9e16114523e1889c751e8c1e040182116d4c906b43f558".to_string(),
+            do_work(&[0x99])
+        );
+    }
+
+    #[test]
+    fn test_mine() {
+        assert_eq!(934, mine(vec![0x99]));
+    }
+
+}

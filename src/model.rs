@@ -1,5 +1,5 @@
-use crate::serialization::{serialize_seed, as_bytes};
 use crate::mining::do_work;
+use crate::serialization::{as_bytes, serialize_seed};
 
 #[derive(Debug)]
 pub struct Block {
@@ -9,13 +9,9 @@ pub struct Block {
 
 impl Block {
     pub fn new(data: BlockData) -> Self {
-
         let hash = do_work(data.serialize().as_slice());
 
-        Block {
-            hash,
-            data,
-        }
+        Block { hash, data }
     }
 }
 
@@ -47,5 +43,28 @@ impl BlockData {
 
     fn as_seed(&self) -> Vec<u8> {
         serialize_seed(self.index, &self.text, &self.prevhash, self.datetime)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_serialize() {
+        let blockdata = BlockData::new(1, "abc".to_string(), 0.to_string(), 0, 10);
+        let serialized = vec![
+            1, 0, 0, 0, 0, 0, 0, 0, 97, 98, 99, 48, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ];
+        assert_eq!(serialized, blockdata.serialize());
+    }
+
+    #[test]
+    fn test_as_seed() {
+        let blockdata = BlockData::new(1, "abc".to_string(), 0.to_string(), 0, 10);
+        let seed = vec![
+            1, 0, 0, 0, 0, 0, 0, 0, 97, 98, 99, 48, 10, 0, 0, 0, 0, 0, 0, 0,
+        ];
+        assert_eq!(seed, blockdata.as_seed());
     }
 }
