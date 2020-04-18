@@ -7,3 +7,4 @@ edition = "2018"
 [dependencies]
 byteorder = "1.3.4"
 bitcoin_hashes = "0.7.4"
+rocket = "0.4.2"
