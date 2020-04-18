@@ -1,8 +1,14 @@
+#![feature(proc_macro_hygiene, decl_macro)]
+
+#[macro_use]
+extern crate rocket;
+
 mod mining;
 mod model;
 mod serialization;
 mod util;
 mod validation;
+mod server;
 
 use mining::mine;
 use model::{Block, BlockData};
@@ -11,6 +17,12 @@ use util::epoch;
 use validation::validate;
 
 fn main() {
+
+    // Start the http server
+    rocket::ignite()
+        .mount("/", routes![server::add])
+        .launch();
+
     let mut chain: Vec<Block> = vec![];
 
     let genesis_date = epoch();
