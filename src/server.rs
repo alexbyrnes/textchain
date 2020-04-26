@@ -4,18 +4,25 @@ use std::path::{Path, PathBuf};
 
 #[derive(Serialize)]
 pub struct Response {
-    result: String
+    status: String,
+    data: String,
 }
 
-#[get("/add")]
-pub fn add() -> Json<Response> {
-    let result = "ok".into();
-    Json(Response { result })
+#[derive(Deserialize)]
+pub struct Request {
+    text: String,
 }
 
+#[post("/add", format = "json", data = "<request>")]
+pub fn add(request: Json<Request>) -> Json<Response> {
+    let status = "success".into();
+    Json(Response {
+        status,
+        data: request.text.clone(),
+    })
+}
 
 #[get("/<file..>")]
 pub fn files(file: PathBuf) -> Option<NamedFile> {
     NamedFile::open(Path::new("ui/").join(file)).ok()
 }
-

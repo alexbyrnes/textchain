@@ -9,23 +9,18 @@ extern crate rocket_contrib;
 mod mining;
 mod model;
 mod serialization;
+mod server;
 mod util;
 mod validation;
-mod server;
 
 use mining::mine;
 use model::{Block, BlockData};
 use serialization::serialize_seed;
+use server::*;
 use util::epoch;
 use validation::validate;
-use server::*;
 
 fn main() {
-    // Start the http server
-    rocket::ignite()
-        .mount("/", routes![add, files])
-        .launch();
-
     let mut chain: Vec<Block> = vec![];
 
     let genesis_date = epoch();
@@ -58,4 +53,7 @@ fn main() {
     }
 
     chain.iter().for_each(|x| println!("{:#?}", x));
+
+    // Start the http server
+    rocket::ignite().mount("/", routes![add, files]).launch();
 }
