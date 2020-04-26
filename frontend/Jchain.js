@@ -5,7 +5,6 @@ function message() {
 			return response.text();
 		})
 .then(function(text){
-    console.log(text);
 
 });
   
