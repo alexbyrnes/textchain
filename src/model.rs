@@ -1,7 +1,7 @@
 use crate::mining::do_work;
 use crate::serialization::{as_bytes, serialize_seed};
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Clone)]
 pub struct Block {
     pub hash: String,
     pub data: BlockData,
@@ -15,7 +15,7 @@ impl Block {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Clone)]
 pub struct BlockData {
     pub index: u64,
     pub text: String,
