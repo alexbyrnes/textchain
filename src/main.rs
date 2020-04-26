@@ -15,12 +15,12 @@ use model::{Block, BlockData};
 use serialization::serialize_seed;
 use util::epoch;
 use validation::validate;
+use server::*;
 
 fn main() {
-
     // Start the http server
     rocket::ignite()
-        .mount("/", routes![server::add])
+        .mount("/", routes![add, files])
         .launch();
 
     let mut chain: Vec<Block> = vec![];
