@@ -15,5 +15,4 @@ mod tests {
     fn test_epoch() {
         assert!(epoch() > 1583600000, "Epoch time too old.")
     }
-
 }

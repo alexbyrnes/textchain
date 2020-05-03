@@ -46,5 +46,4 @@ mod tests {
     fn test_mine() {
         assert_eq!(934, mine(vec![0x99]));
     }
-
 }
