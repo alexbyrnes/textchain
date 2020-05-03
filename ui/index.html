@@ -2,14 +2,18 @@
 <html lang="en">
 
 <head>
+	<link rel="stylesheet" href="Jchain.css">
 </head>
 <body>
+	<div>
 <h1>Text Chain</h1>	
-<p>Add your text here: </p>
+
+<p>Please add the text you would like to upload to Text Chain in the box below and press the submit button.</p>
 <form >
-  <textarea id='text'>Some text...</textarea>
+  <textarea id='text' placeholder="Your text..." ></textarea>
 </form>
-<button id="change" onclick="message('http://localhost:8000/add')">Button</button>
+<button id="change" onclick="message('http://localhost:8000/add')">Submit</button>
+</div>
 </body>
 <script src="Jchain.js"></script> 
 </html>
